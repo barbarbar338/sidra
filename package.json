@@ -1,6 +1,6 @@
 {
 	"name": "sidra",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"main": "dist",
 	"repository": {
 		"type": "git",
@@ -12,14 +12,14 @@
 		"url": "https://bariscodes.me/"
 	},
 	"license": "GPL-3.0",
-	"description": "Sidra offers you many decorators for you to use with the express module.",
+	"description": "⚔️ Sidra offers you many decorators for you to use with the express module.",
 	"typings": "dist/index.d.ts",
 	"bin": {
 		"sidra": "./dist/cli.js"
 	},
 	"scripts": {
-		"prebuild": "rimraf dist",
-		"build": "tsc",
+		"prebuild": "rimraf dist && rimraf docs",
+		"build": "tsc && typedoc",
 		"format": "prettier --write .",
 		"format:watch": "onchange . -- prettier --write {{changed}}",
 		"lint": "eslint --fix .",
@@ -38,11 +38,12 @@
 		"onchange": "^7.1.0",
 		"prettier": "^2.2.1",
 		"rimraf": "^3.0.2",
+		"typedoc": "^0.19.2",
 		"typescript": "^4.1.3"
 	},
 	"dependencies": {
 		"body-parser": "^1.19.0",
-		"colors": "^1.4.0",
+		"chalk": "^4.1.0",
 		"daph": "^1.0.1",
 		"express": "^4.17.1",
 		"reflect-metadata": "^0.1.13"

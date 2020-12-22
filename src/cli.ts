@@ -5,7 +5,7 @@ import { mkdirSync, existsSync, readdirSync } from "fs";
 import { resolve } from "path";
 import { sync } from "rimraf";
 import { logger } from "./logger";
-import colors from "colors";
+import chalk from "chalk";
 
 daph.createCommand(
 	{
@@ -42,8 +42,8 @@ daph.createCommand(
 			cwd: resolve(process.cwd(), name),
 		});
 		logger.success("Dependencies installed successfully!");
-		const cdCommand = colors.blue(`cd ${name}`);
-		const startCommand = colors.blue("npm run dev");
+		const cdCommand = chalk.blue(`cd ${name}`);
+		const startCommand = chalk.blue("npm run dev");
 		logger.success(
 			`Sidra project created successfully! Run ${cdCommand} and ${startCommand}`,
 		);

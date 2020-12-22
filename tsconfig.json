@@ -13,5 +13,10 @@
 		"moduleResolution": "node",
 		"esModuleInterop": true
 	},
+	"typedocOptions": {
+		"mode": "modules",
+		"out": "docs",
+		"name": "⚔️ SidraJS Docs"
+	},
 	"exclude": ["node_modules", "dist", "typings"]
 }
