@@ -112,4 +112,5 @@ export function Bootstrap(app: Express, port = 3000) {
 			}`,
 		);
 	});
+	return listener;
 }
