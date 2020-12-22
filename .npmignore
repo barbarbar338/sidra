@@ -1,0 +1,10 @@
+node_modules
+src
+assets
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+.prettierignore
+.prettierrc
+yarn.lock

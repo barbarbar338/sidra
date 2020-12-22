@@ -1,5 +1,5 @@
 <center>
-    <img src="/assets/banner.png" />
+    <img src="https://raw.githubusercontent.com/barbarbar338/sidra/main/assets/banner.png" />
 
 ---
 
@@ -23,11 +23,15 @@ TypeScript definitions are built in.
 Run
 
 ```
-$ npm install --save sidra
+$ npm install --global --save sidra
 ```
 
 or
 
 ```
-$ yarn add sidra
+$ yarn global add sidra
 ```
+
+## Docs
+
+WIP
