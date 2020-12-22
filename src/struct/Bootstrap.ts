@@ -5,6 +5,7 @@ import { HTTPStatus } from "./Utils";
 import { Exception } from "./Exception";
 import { logger } from "../logger";
 import { AddressInfo } from "net";
+import { Server } from "http";
 
 let GlobalPrefix = "";
 
@@ -21,7 +22,7 @@ export function SetGlobalPrefix(prefix: string) {
  * @param app Express application
  * @param port Application port (default is 3000)
  */
-export function Bootstrap(app: Express, port = 3000) {
+export function Bootstrap(app: Express, port = 3000): Server {
 	logger.info("Starting Sidra application...");
 	app.use(
 		urlencoded({
