@@ -3,6 +3,8 @@ import { Express, NextFunction, Request, Response } from "express";
 import { urlencoded, json } from "body-parser";
 import { HTTPStatus } from "./Utils";
 import { Exception } from "./Exception";
+import { logger } from "../logger";
+import { AddressInfo } from "net";
 
 let GlobalPrefix = "";
 
@@ -20,6 +22,7 @@ export function SetGlobalPrefix(prefix: string) {
  * @param port Application port (default is 3000)
  */
 export function Bootstrap(app: Express, port = 3000) {
+	logger.info("Starting Sidra application...");
 	app.use(
 		urlencoded({
 			extended: false,
@@ -30,7 +33,9 @@ export function Bootstrap(app: Express, port = 3000) {
 		const controller = new Controller();
 		const prefix = Reflect.getMetadata("prefix", Controller);
 		const routes = Reflect.getMetadata("routes", Controller);
+		logger.info(`Mapping Controller: ${GlobalPrefix}${prefix}`);
 		routes.forEach((route) => {
+			logger.info(`Mapping Route: ${GlobalPrefix}${prefix}${route.path}`);
 			app[route.requestMethod](
 				GlobalPrefix + prefix + route.path,
 				...route.middlewares,
@@ -80,7 +85,7 @@ export function Bootstrap(app: Express, port = 3000) {
 							res.statusCode = exception.statusCode;
 							res.send(exception);
 						} else {
-							console.error(error);
+							logger.error(error);
 							res.statusCode = HTTPStatus.INTERNAL_SERVER_ERROR;
 							res.json({
 								statusCode: HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -92,9 +97,19 @@ export function Bootstrap(app: Express, port = 3000) {
 					}
 				},
 			);
+			logger.success(
+				`Route mapped: ${GlobalPrefix}${prefix}${route.path}`,
+			);
 		});
+		logger.success(`Controller mapped: ${GlobalPrefix}${prefix}`);
 	});
-	app.listen(port, "0.0.0.0", () => {
-		console.log("ready");
+	logger.success("Mapped all Controllers");
+	logger.info("Starting Application");
+	const listener = app.listen(port, "0.0.0.0", () => {
+		logger.success(
+			`Application started successfully on port ${
+				(listener.address() as AddressInfo).port
+			}`,
+		);
 	});
 }
