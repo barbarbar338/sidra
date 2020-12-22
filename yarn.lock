@@ -507,9 +507,9 @@ cross-spawn@^7.0.1, cross-spawn@^7.0.2:
     which "^2.0.1"
 
 daph@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/daph/-/daph-1.0.0.tgz#cb13e1440aefd8e4ccedc4831f8f8980cb29aff8"
-  integrity sha512-mYQpG10TcUs7Hz6tovCmDoxvhryvAsieJbuXJn2oAxUz6PfoMCnUNHpGXiu3WqqhWEOYRa+3Qr/MV4pS+ENPpw==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/daph/-/daph-1.0.1.tgz#644354c8a39bac5a5720271190100f6ca78a813f"
+  integrity sha512-W0ERWso0OPdXUox7fGt6HCtlPBtEjjLy4FhyNxAUul8IlmxGo4jHmygPcdUXiGrvu4S7h8ioeoOFox8pGFiB8A==
   dependencies:
     bargs "^1.0.1"
     colors "^1.4.0"
