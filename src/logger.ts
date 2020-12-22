@@ -1,6 +1,9 @@
 import chalk from "chalk";
 
-const isSupported = process.platform !== "win32" || process.env.CI || process.env.TERM === "xterm-256color";
+const isSupported =
+	process.platform !== "win32" ||
+	process.env.CI ||
+	process.env.TERM === "xterm-256color";
 
 export const logger = {
 	info: (message: string) => {
