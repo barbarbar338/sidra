@@ -4,7 +4,7 @@ import { execSync } from "child_process";
 import { mkdirSync, existsSync, readdirSync } from "fs";
 import { resolve } from "path";
 import { sync } from "rimraf";
-import { logger } from "./logger";
+import { Logger } from "./Logger";
 import chalk from "chalk";
 
 daph.createCommand(
@@ -19,16 +19,16 @@ daph.createCommand(
 	},
 	(): unknown => {
 		const name = "sidra-project";
-		logger.info(`Creating a Sidra project into "${name}"...`);
+		Logger.info(`Creating a Sidra project into "${name}"...`);
 		if (!existsSync(`./${name}`)) mkdirSync(`./${name}`);
 		else {
 			const files = readdirSync(`./${name}`);
 			if (files.length > 0)
-				return logger.error(
+				return Logger.error(
 					`Empty the "${name}" folder and try again.`,
 				);
 		}
-		logger.info("Downloading template from repo...");
+		Logger.info("Downloading template from repo...");
 		execSync(
 			`git clone https://github.com/barbarbar338/sidra-template ${name}`,
 			{
@@ -36,15 +36,15 @@ daph.createCommand(
 			},
 		);
 		sync(`./${name}/.git`);
-		logger.success("Template downloaded successfully!");
-		logger.info("Installing dependencies...");
+		Logger.success("Template downloaded successfully!");
+		Logger.info("Installing dependencies...");
 		execSync("npm i", {
 			cwd: resolve(process.cwd(), name),
 		});
-		logger.success("Dependencies installed successfully!");
-		const cdCommand = chalk.blue(`cd ${name}`);
-		const startCommand = chalk.blue("npm run dev");
-		logger.success(
+		Logger.success("Dependencies installed successfully!");
+		const cdCommand = chalk.cyan(`cd ${name}`);
+		const startCommand = chalk.cyan("npm run dev");
+		Logger.success(
 			`Sidra project created successfully! Run ${cdCommand} and ${startCommand}`,
 		);
 	},

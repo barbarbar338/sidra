@@ -1,6 +1,6 @@
 # Error Handling
 
-What you need to do in an incorrect or incomplete transaction.
+What you need to do in an incorrect or incomplete transaction. Note: Sidra automatically handles 404 pages.
 
 Let's go through a simple template. For more information about this template, check out the [Manual Instructions](pages/manual-instructions.md) page.
 
