@@ -1,6 +1,6 @@
 {
 	"name": "sidra",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"main": "dist",
 	"repository": {
 		"type": "git",
@@ -18,8 +18,8 @@
 		"sidra": "./dist/cli.js"
 	},
 	"scripts": {
-		"prebuild": "rimraf dist && rimraf docs",
-		"build": "tsc && typedoc",
+		"prebuild": "rimraf dist",
+		"build": "tsc",
 		"format": "prettier --write .",
 		"format:watch": "onchange . -- prettier --write {{changed}}",
 		"lint": "eslint --fix .",

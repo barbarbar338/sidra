@@ -21,7 +21,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 Let's make a few changes here
@@ -43,7 +43,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 As you can see we changed the route "/world" to "/". Now let's decorate a parameter with the @Query decorator to access this "name" query. See [All Param Decorators](pages/all-param-decorators.md) page for all param decorators.
@@ -65,7 +65,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 However, there is a problem now, the user may not specify the "name" query. Let's try to avoid this error now. To avoid this, we will use the "Exception" class. See [Exceptions](pages/exceptions.md) page for all exceptions.
@@ -96,7 +96,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 ## Result

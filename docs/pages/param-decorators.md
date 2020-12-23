@@ -21,7 +21,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 Let's make a few changes here
@@ -43,7 +43,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 As you can see we changed the route "/world" to "/:name". Now let's decorate a parameter with the @Param decorator to access this "name" parameter. See [All Param Decorators](pages/all-param-decorators.md) page for all param decorators.
@@ -65,7 +65,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 # Result

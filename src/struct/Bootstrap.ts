@@ -1,4 +1,3 @@
-import { Controllers } from "./Controller";
 import { Express, NextFunction, Request, Response } from "express";
 import { urlencoded, json } from "body-parser";
 import { HTTPStatus } from "./Utils";
@@ -20,9 +19,14 @@ export function SetGlobalPrefix(prefix: string) {
 /**
  * Bootstraps your application
  * @param app Express application
+ * @param Controllers Sidra Controllers array
  * @param port Application port (default is 3000)
  */
-export function Bootstrap(app: Express, port = 3000): Server {
+export function Bootstrap(
+	app: Express,
+	Controllers: any[],
+	port = 3000,
+): Server {
 	logger.info("Starting Sidra application...");
 	app.use(
 		urlencoded({

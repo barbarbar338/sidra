@@ -76,7 +76,7 @@ class HelloController {
 }
 
 const app = express();
-const listener = Bootstrap(app, 3000);
+const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
 We wanted our app to launch at port 3000
