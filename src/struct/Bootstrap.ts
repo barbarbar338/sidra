@@ -2,7 +2,7 @@ import { Express, NextFunction, Request, Response } from "express";
 import { urlencoded, json } from "body-parser";
 import { HTTPStatus } from "./Utils";
 import { Exception } from "./Exception";
-import { Logger } from "../Logger";
+import * as pogger from "pogger";
 import { AddressInfo } from "net";
 import { Server } from "http";
 import chalk from "chalk";
@@ -33,7 +33,7 @@ export function Bootstrap(
 	port = 3000,
 	options: SidraOptions = { debugLog: false },
 ): Server {
-	Logger.info("Starting Sidra application...");
+	pogger.info("Starting Sidra application...");
 	app.use(
 		urlencoded({
 			extended: false,
@@ -44,9 +44,9 @@ export function Bootstrap(
 		const controller = new Controller();
 		const prefix = Reflect.getMetadata("prefix", Controller);
 		const routes = Reflect.getMetadata("routes", Controller);
-		Logger.info(`Mapping Controller: ${GlobalPrefix}${prefix}`);
+		pogger.info(`Mapping Controller: ${GlobalPrefix}${prefix}`);
 		routes.forEach((route) => {
-			Logger.info(`Mapping Route: ${GlobalPrefix}${prefix}${route.path}`);
+			pogger.info(`Mapping Route: ${GlobalPrefix}${prefix}${route.path}`);
 			app[route.requestMethod](
 				GlobalPrefix + prefix + route.path,
 				...route.middlewares,
@@ -91,7 +91,7 @@ export function Bootstrap(
 						res.statusCode = response.statusCode || 200;
 						if (options.debugLog) {
 							const endDate = Date.now();
-							Logger.info(
+							pogger.info(
 								`${chalk.yellowBright(
 									(route.requestMethod as string).toUpperCase(),
 								)} ${GlobalPrefix + prefix + route.path} ${
@@ -107,7 +107,7 @@ export function Bootstrap(
 							res.statusCode = exception.statusCode;
 							if (options.debugLog) {
 								const endDate = Date.now();
-								Logger.warning(
+								pogger.warning(
 									`${chalk.yellowBright(
 										(route.requestMethod as string).toUpperCase(),
 									)} ${GlobalPrefix + prefix + route.path} ${
@@ -119,11 +119,11 @@ export function Bootstrap(
 							}
 							res.send(exception);
 						} else {
-							Logger.error(error);
+							pogger.error(error);
 							res.statusCode = HTTPStatus.INTERNAL_SERVER_ERROR;
 							if (options.debugLog) {
 								const endDate = Date.now();
-								Logger.error(
+								pogger.error(
 									`${chalk.yellowBright(
 										(route.requestMethod as string).toUpperCase(),
 									)} ${GlobalPrefix + prefix + route.path} ${
@@ -143,16 +143,16 @@ export function Bootstrap(
 					}
 				},
 			);
-			Logger.success(
+			pogger.success(
 				`Route mapped: ${GlobalPrefix}${prefix}${route.path}`,
 			);
 		});
-		Logger.success(`Controller mapped: ${GlobalPrefix}${prefix}`);
+		pogger.success(`Controller mapped: ${GlobalPrefix}${prefix}`);
 	});
-	Logger.success("Mapped all Controllers");
+	pogger.success("Mapped all Controllers");
 	app.all("*", (req, res) => {
 		if (options.debugLog) {
-			Logger.error(
+			pogger.error(
 				`${chalk.yellowBright(req.method.toUpperCase())} ${
 					req.path
 				} 0ms ${chalk.redBright(HTTPStatus.NOT_FOUND)}`,
@@ -166,9 +166,9 @@ export function Bootstrap(
 			data: null,
 		});
 	});
-	Logger.info("Starting Application");
+	pogger.info("Starting Application");
 	const listener = app.listen(port, "0.0.0.0", () => {
-		Logger.success(
+		pogger.success(
 			`Application started successfully on port ${
 				(listener.address() as AddressInfo).port
 			}`,

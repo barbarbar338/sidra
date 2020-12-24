@@ -39,7 +39,6 @@
 		"eslint-plugin-import": "^2.22.1",
 		"onchange": "^7.1.0",
 		"prettier": "^2.2.1",
-		"rimraf": "^3.0.2",
 		"typescript": "^4.1.3"
 	},
 	"dependencies": {
@@ -47,6 +46,8 @@
 		"chalk": "^4.1.0",
 		"daph": "^1.0.1",
 		"express": "^4.17.1",
-		"reflect-metadata": "^0.1.13"
+		"pogger": "^0.0.3",
+		"reflect-metadata": "^0.1.13",
+		"rimraf": "^3.0.2"
 	}
 }

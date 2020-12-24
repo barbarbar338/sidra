@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-export { Logger } from "./logger";
+export * as Logger from "pogger";
 export { Middleware, TMiddleware } from "./struct/Middleware";
 export { Method } from "./struct/Method";
 export { Delete } from "./struct/methods/Delete";
