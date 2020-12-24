@@ -28,8 +28,8 @@ Let's import our buffer
 import { Controller, Get, APIRes, HTTPStatus, Bootstrap } from "sidra";
 import express from "express";
 
-import { readfileSync } from "fs";
-const buffer = readfileSync("./path/to/file.png");
+import { readFileSync } from "fs";
+const buffer = readFileSync("./path/to/file.png");
 
 @Controller("/hello")
 class HelloController {
@@ -52,8 +52,8 @@ This is where things get messed up. If we send the buffer directly, it will thin
 import { Controller, Get, HTTPStatus, Bootstrap, Res } from "sidra";
 import express, { Response } from "express";
 
-import { readfileSync } from "fs";
-const buffer = readfileSync("./path/to/file.png");
+import { readFileSync } from "fs";
+const buffer = readFileSync("./path/to/file.png");
 
 @Controller("/hello")
 class HelloController {
