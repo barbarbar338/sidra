@@ -9,3 +9,4 @@ assets
 .prettierrc
 yarn.lock
 docs
+.github
