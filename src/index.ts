@@ -8,6 +8,8 @@ export { Get } from "./struct/methods/Get";
 export { Options } from "./struct/methods/Options";
 export { Post } from "./struct/methods/Post";
 export { Put } from "./struct/methods/Put";
+export { All } from "./struct/methods/All";
+export { Patch } from "./struct/methods/Patch";
 export { Controller } from "./struct/Controller";
 export { Bootstrap, SetGlobalPrefix } from "./struct/Bootstrap";
 export { Param } from "./struct/paramDecorators/Param";

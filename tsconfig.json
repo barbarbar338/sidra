@@ -13,5 +13,5 @@
 		"moduleResolution": "node",
 		"esModuleInterop": true
 	},
-	"exclude": ["node_modules", "dist", "docs"]
+	"exclude": ["node_modules", "dist", "docs", "tests"]
 }
