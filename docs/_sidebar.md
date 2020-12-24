@@ -2,6 +2,7 @@
 -   [Getting Started](pages/getting-started.md)
 -   [Manual Instructions](pages/manual-instructions.md)
 -   [Param Decorators](pages/param-decorators.md)
+-   [Sending Buffer](pages/sending-buffer.md)
 -   [Error Handling](pages/error-handling.md)
 -   [Method Decorators](pages/method-decorators.md)
 -   [All Param Decorators](pages/all-param-decorators.md)
