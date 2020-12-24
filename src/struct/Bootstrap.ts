@@ -88,7 +88,8 @@ export function Bootstrap(
 						const response = await controller[route.methodName](
 							...args,
 						);
-						res.statusCode = response.statusCode || 200;
+						const statusCode = response && response.statusCode ? response.statusCode : 200;
+						res.statusCode = statusCode;
 						if (options.debugLog) {
 							const endDate = Date.now();
 							pogger.info(
@@ -96,10 +97,10 @@ export function Bootstrap(
 									(route.requestMethod as string).toUpperCase(),
 								)} ${GlobalPrefix + prefix + route.path} ${
 									endDate - startDate
-								}ms ${chalk.greenBright(response.statusCode)}`,
+								}ms ${chalk.greenBright(statusCode)}`,
 							);
 						}
-						res.send(response);
+						if (response) res.send(response);
 					} catch (error) {
 						const response = error;
 						if (response instanceof Exception) {
