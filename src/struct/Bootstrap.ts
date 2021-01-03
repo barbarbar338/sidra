@@ -88,7 +88,10 @@ export function Bootstrap(
 						const response = await controller[route.methodName](
 							...args,
 						);
-						const statusCode = response && response.statusCode ? response.statusCode : 200;
+						const statusCode =
+							response && response.statusCode
+								? response.statusCode
+								: 200;
 						res.statusCode = statusCode;
 						if (options.debugLog) {
 							const endDate = Date.now();

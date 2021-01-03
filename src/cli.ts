@@ -1,51 +1,28 @@
 #!/usr/bin/env node
 import daph from "daph";
-import { execSync } from "child_process";
-import { mkdirSync, existsSync, readdirSync } from "fs";
-import { resolve } from "path";
-import { sync } from "rimraf";
-import * as pogger from "pogger";
-import chalk from "chalk";
+import create from "./cli/create";
 
 daph.createCommand(
 	{
 		name: "create",
-		usage: "",
-		example: [],
+		usage: "[--template <templateURL>]",
+		example: [
+			"",
+			"--template https://github.com/barbarbar338/sidra-template",
+			"-t https://github.com/barbarbar338/sidra-template"
+		],
 		category: "utility",
 		aliases: ["c", "g", "generate", "init", "i", "initialize"],
 		description: "Creates a new SidraJS project",
-		argDefinitions: [],
-	},
-	(): unknown => {
-		const name = "sidra-project";
-		pogger.info(`Creating a Sidra project into "${name}"...`);
-		if (!existsSync(`./${name}`)) mkdirSync(`./${name}`);
-		else {
-			const files = readdirSync(`./${name}`);
-			if (files.length > 0)
-				return pogger.error(
-					`Empty the "${name}" folder and try again.`,
-				);
-		}
-		pogger.info("Downloading template from repo...");
-		execSync(
-			`git clone https://github.com/barbarbar338/sidra-template ${name}`,
+		argDefinitions: [
 			{
-				cwd: resolve(process.cwd()),
+				name: "template",
+				type: String,
+				aliases: ["t", "temp"],
+				default: true,
+				isOptional: true,
 			},
-		);
-		sync(`./${name}/.git`);
-		pogger.success("Template downloaded successfully!");
-		pogger.info("Installing dependencies...");
-		execSync("npm i", {
-			cwd: resolve(process.cwd(), name),
-		});
-		pogger.success("Dependencies installed successfully!");
-		const cdCommand = chalk.cyan(`cd ${name}`);
-		const startCommand = chalk.cyan("npm run dev");
-		pogger.success(
-			`Sidra project created successfully! Run ${cdCommand} and ${startCommand}`,
-		);
+		],
 	},
+	create,
 ).help();

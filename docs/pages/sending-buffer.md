@@ -22,7 +22,7 @@ const app = express();
 const listener = Bootstrap(app, [HelloController], 3000);
 ```
 
-Let's import our buffer 
+Let's import our buffer
 
 ```typescript
 import { Controller, Get, APIRes, HTTPStatus, Bootstrap } from "sidra";
@@ -46,6 +46,7 @@ class HelloController {
 const app = express();
 const listener = Bootstrap(app, [HelloController], 3000);
 ```
+
 This is where things get messed up. If we send the buffer directly, it will think of it as an APIRes and try to do so. So we need to make our return type Buffer and our response type "image/png" (because we are using an image file here). For this we need to use the @Res decorator and we don't need APIRes anymore.
 
 ```typescript
@@ -58,12 +59,10 @@ const buffer = readFileSync("./path/to/file.png");
 @Controller("/hello")
 class HelloController {
 	@Get("/world")
-	getHelloWorld(
-        @Res() res: Response
-    ): Buffer {
-        res.type("image/png");
-        return buffer;
-    }
+	getHelloWorld(@Res() res: Response): Buffer {
+		res.type("image/png");
+		return buffer;
+	}
 }
 
 const app = express();
