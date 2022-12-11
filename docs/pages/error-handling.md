@@ -2,11 +2,10 @@
 
 What you need to do in an incorrect or incomplete transaction. Note: Sidra automatically handles 404 pages.
 
-Let's go through a simple template. For more information about this template, check out the [Manual Instructions](pages/manual-instructions.md) page.
+Let's go through a simple template. For more information about this template, check out the [Getting Started](pages/getting-started.md?id=getting-started) page.
 
 ```typescript
-import { Controller, Get, APIRes, HTTPStatus, Bootstrap } from "sidra";
-import express from "express";
+import { Controller, Get, APIRes, HTTPStatus, Handle } from "sidra";
 
 @Controller("/hello")
 class HelloController {
@@ -14,61 +13,45 @@ class HelloController {
 	getHelloWorld(): APIRes<null> {
 		return {
 			statusCode: HTTPStatus.OK,
-			message: "Hello, world!",
+			message: "Hello, Sidra!",
 			data: null,
 		};
 	}
 }
 
-const app = express();
-const listener = Bootstrap(app, [HelloController], 3000);
+const handler = Handle([HelloController]);
+
+addEventListener("fetch", (event) => {
+	event.respondWith(handler(event.request));
+});
 ```
 
 Let's make a few changes here
 
 ```typescript
-import { Controller, Get, APIRes, HTTPStatus, Bootstrap } from "sidra";
-import express from "express";
+import { Controller, Get, APIRes, HTTPStatus, Handle } from "sidra";
 
 @Controller("/hello")
 class HelloController {
-	@Get("/")
-	getHelloWorld(): APIRes<null> {
+	@Get("/:id")
+	getHelloWorld(req: Request): APIRes<string> {
+		const id = req.params?.id;
 		return {
 			statusCode: HTTPStatus.OK,
-			message: "Hello, world!",
-			data: null,
+			message: "Hello, Sidra!",
+			data: id,
 		};
 	}
 }
 
-const app = express();
-const listener = Bootstrap(app, [HelloController], 3000);
+const handler = Handle([HelloController]);
+
+addEventListener("fetch", (event) => {
+	event.respondWith(handler(event.request));
+});
 ```
 
-As you can see we changed the route "/world" to "/". Now let's decorate a parameter with the @Query decorator to access this "name" query. See [All Param Decorators](pages/all-param-decorators.md) page for all param decorators.
-
-```typescript
-import { Controller, Get, APIRes, HTTPStatus, Bootstrap, Query } from "sidra";
-import express from "express";
-
-@Controller("/hello")
-class HelloController {
-	@Get("/")
-	getHelloWorld(@Query("name") name: string): APIRes<null> {
-		return {
-			statusCode: HTTPStatus.OK,
-			message: `Hello, ${name}!`,
-			data: null,
-		};
-	}
-}
-
-const app = express();
-const listener = Bootstrap(app, [HelloController], 3000);
-```
-
-However, there is a problem now, the user may not specify the "name" query. Let's try to avoid this error now. To avoid this, we will use the "Exception" class. See [Exceptions](pages/exceptions.md) page for all exceptions.
+As you can see we changed the route "/world" to "/:id" and tried to access `id` parameter.
 
 ```typescript
 import {
@@ -76,45 +59,54 @@ import {
 	Get,
 	APIRes,
 	HTTPStatus,
-	Bootstrap,
-	Query,
-	BadRequestException,
+	Handle,
+	UnauthorizedException,
 } from "sidra";
-import express from "express";
 
 @Controller("/hello")
 class HelloController {
-	@Get("/")
-	getHelloWorld(@Query("name") name: string): APIRes<null> {
-		if (!name) throw new BadRequestException("name query is required");
+	@Get("/:id")
+	getHelloWorld(req: Request): APIRes<string> {
+		const id = req.params?.id;
+
+		if (id !== "OWNER_ID")
+			throw new UnauthorizedException(
+				"You are not the owner of this route",
+			);
+
 		return {
 			statusCode: HTTPStatus.OK,
-			message: `Hello, ${name}!`,
-			data: null,
+			message: "Hello, Sidra!",
+			data: id,
 		};
 	}
 }
 
-const app = express();
-const listener = Bootstrap(app, [HelloController], 3000);
+const handler = Handle([HelloController]);
+
+addEventListener("fetch", (event) => {
+	event.respondWith(handler(event.request));
+});
 ```
+
+As you can see, we added a condition to check if the id is equal to "OWNER_ID". If not, we throw an exception. These exceptions are handled by Sidra. See [Exceptions](pages/exceptions.md?id=exceptions) page for all exceptions.
 
 ## Result
 
-Go to http://localhost:3000/hello/ and see whats going on!
+Go to http://localhost:8787/hello/test and see whats going on!
 
 You have to see something like:
 
 ```javascript
 {
-    "statusCode": 400,
-    "error": "Bad Request",
-    "message": "name query is required",
+    "statusCode": 401,
+    "error": "Unauthorized",
+    "message": "You are not the owner of this route",
     "data": null
 }
 ```
 
-Now go to http://localhost:3000/hello/?name=Sidra and see whats going on!
+Now go to http://localhost:8787/hello/OWNER_ID and see whats going on!
 
 You have to see something like:
 

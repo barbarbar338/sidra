@@ -1,65 +1,40 @@
 {
 	"name": "sidra",
-	"version": "0.0.8",
+	"description": "⚔️ Sidra offers you many decorators for you to use with Cloudflare Workers.",
+	"version": "0.1.2",
 	"main": "dist",
+	"license": "GPL-3.0",
+	"typings": "dist",
+	"homepage": "https://barisbored.github.io/sidra/",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/barbarbar338/sidra"
+		"url": "https://github.com/barisbored/sidra"
 	},
 	"author": {
-		"email": "demirci.baris38@gmail.com",
+		"email": "hi@338.rocks",
 		"name": "Barış DEMİRCİ",
-		"url": "https://bariscodes.me/"
-	},
-	"license": "GPL-3.0",
-	"description": "⚔️ Sidra offers you many decorators for you to use with the express module.",
-	"typings": "dist/index.d.ts",
-	"bin": {
-		"sidra": "./dist/cli.js"
+		"url": "https://338.rocks"
 	},
 	"scripts": {
-		"test": "mocha -r ts-node/register tests/*.test.ts",
 		"prebuild": "rimraf dist",
 		"build": "tsc",
 		"format": "prettier --write .",
-		"format:watch": "onchange . -- prettier --write {{changed}}",
-		"lint": "eslint --fix .",
-		"lint:watch": "onchange . -- eslint --fix {{changed}}",
+		"update": "taze latest -w",
 		"docs": "docsify serve docs"
 	},
-	"devDependencies": {
-		"@types/body-parser": "^1.19.0",
-		"@types/chai": "^4.2.14",
-		"@types/cli-progress": "^3.8.0",
-		"@types/express": "^4.17.9",
-		"@types/mocha": "^8.2.0",
-		"@types/node": "^14.14.16",
-		"@types/node-fetch": "^2.5.7",
-		"@types/rimraf": "^3.0.0",
-		"@typescript-eslint/eslint-plugin": "^4.11.0",
-		"@typescript-eslint/parser": "^4.11.0",
-		"chai": "^4.2.0",
-		"chai-http": "^4.3.0",
-		"docsify-cli": "^4.2.2",
-		"eslint": "^7.16.0",
-		"eslint-config-prettier": "^7.1.0",
-		"eslint-plugin-import": "^2.22.1",
-		"mocha": "^8.2.1",
-		"onchange": "^7.1.0",
-		"prettier": "^2.2.1",
-		"ts-node": "^9.1.1",
-		"typescript": "^4.1.3"
-	},
 	"dependencies": {
-		"body-parser": "^1.19.0",
-		"chalk": "^4.1.0",
-		"cli-progress": "^3.8.2",
-		"daph": "^1.0.1",
-		"express": "^4.17.1",
-		"node-fetch": "^2.6.1",
-		"pogger": "^0.0.4",
-		"reflect-metadata": "^0.1.13",
+		"@types/itty-router-extras": "^0.4.0",
+		"itty-router": "^2.6.6",
+		"itty-router-extras": "^0.4.2",
+		"reflect-metadata": "^0.1.13"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20221111.1",
+		"docsify-cli": "^4.4.4",
+		"prettier": "^2.8.1",
 		"rimraf": "^3.0.2",
-		"terminal-image": "^1.2.1"
+		"taze": "^0.8.4",
+		"ts-loader": "^9.4.2",
+		"typescript": "^4.9.4"
 	}
 }
