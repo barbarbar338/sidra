@@ -1,0 +1,40 @@
+{
+	"name": "sidra",
+	"description": "⚔️ Sidra offers you many decorators for you to use with Cloudflare Workers.",
+	"version": "0.1.2",
+	"main": "dist",
+	"license": "GPL-3.0",
+	"typings": "dist",
+	"homepage": "https://barisbored.github.io/sidra/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/barisbored/sidra"
+	},
+	"author": {
+		"email": "hi@338.rocks",
+		"name": "Barış DEMİRCİ",
+		"url": "https://338.rocks"
+	},
+	"scripts": {
+		"prebuild": "rimraf dist",
+		"build": "tsc",
+		"format": "prettier --write .",
+		"update": "taze latest -w",
+		"docs": "docsify serve docs"
+	},
+	"dependencies": {
+		"@types/itty-router-extras": "^0.4.0",
+		"itty-router": "^2.6.6",
+		"itty-router-extras": "^0.4.2",
+		"reflect-metadata": "^0.1.13"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20221111.1",
+		"docsify-cli": "^4.4.4",
+		"prettier": "^2.8.1",
+		"rimraf": "^3.0.2",
+		"taze": "^0.8.4",
+		"ts-loader": "^9.4.2",
+		"typescript": "^4.9.4"
+	}
+}

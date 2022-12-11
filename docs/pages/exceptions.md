@@ -1,0 +1,22 @@
+# Exceptions
+
+-   BadGatewayException
+-   BadRequestException
+-   ConflictException
+-   ForbiddenException
+-   GatewayTimeoutException
+-   GoneException
+-   HttpVersionNotSupportedException
+-   ImATeapotException
+-   InternalServerErrorException
+-   MethodNotAllowedException
+-   NotAcceptableException
+-   NotFoundException
+-   NotImplementedException
+-   PayloadTooLargeException
+-   PreconditionFailedException
+-   RequestTimeoutException
+-   ServiceUnavailableException
+-   UnauthorizedException
+-   UnprocessableEntityException
+-   UnsupportedMediaTypeException
