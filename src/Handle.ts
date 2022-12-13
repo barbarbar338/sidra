@@ -1,5 +1,6 @@
 import { status, ThrowableRouter } from "itty-router-extras";
 import { Exception } from "./Exception";
+import { ForbiddenException } from "./exceptions";
 import { APIRes, HTTPStatus, IRoute } from "./Utils";
 
 export const Handle = (Controllers: any[]) => {
@@ -34,16 +35,28 @@ export const Handle = (Controllers: any[]) => {
 				async (req) => {
 					try {
 						const res = await controller[route.methodName](req);
-						const statusCode = res?.status || HTTPStatus.OK;
+						const statusCode =
+							res?.statusCode ||
+							(route.redirect ? HTTPStatus.FOUND : HTTPStatus.OK);
 
-						if (!res) {
-							return status(statusCode, {
-								data: null,
-								message: "No Response",
-								statusCode,
-							} as APIRes<null>);
+						if (route.redirect) {
+							if (!res || !res.to) {
+								throw new ForbiddenException(
+									"no redirect path defined",
+								);
+							}
+
+							return Response.redirect(res.to, statusCode);
 						} else {
-							return status(statusCode, res);
+							if (!res) {
+								return status(statusCode, {
+									data: null,
+									message: "No Response",
+									statusCode,
+								} as APIRes<null>);
+							} else {
+								return status(statusCode, res);
+							}
 						}
 					} catch (error) {
 						console.error(error);

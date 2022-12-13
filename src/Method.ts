@@ -17,6 +17,7 @@ export const Method = (method: string) => {
 				path,
 				middlewares: [],
 				methodName: propertyKey,
+				redirect: false,
 			});
 
 			Reflect.defineMetadata("routes", routes, target.constructor);

@@ -7,11 +7,17 @@ export interface APIRes<T> {
 	data: T;
 }
 
+export interface IRedirectRes {
+	statusCode: HTTPStatus.MOVED_PERMANENTLY | HTTPStatus.FOUND;
+	to: string;
+}
+
 export interface IRoute {
 	requestMethod: string;
 	path: string;
 	methodName: string | symbol;
 	middlewares: RouteHandler<Request>[];
+	redirect?: boolean;
 }
 
 export enum HTTPStatus {
