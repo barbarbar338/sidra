@@ -85,3 +85,21 @@ export enum HTTPStatus {
 	NETWORK_AUTHENTICATION_REQUIRED = 511,
 	NETWORK_CONNECT_TIMEOUT_ERROR = 599,
 }
+
+export const checkIfIAPIRes = <T>(value: any): value is APIRes<T> => {
+	const newVal = value as APIRes<T>;
+	if (newVal.statusCode && newVal.message && newVal.data) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+export const checkIfIRedirectRes = (value: any): value is IRedirectRes => {
+	const newVal = value as IRedirectRes;
+	if (newVal.statusCode && newVal.to) {
+		return true;
+	} else {
+		return false;
+	}
+};

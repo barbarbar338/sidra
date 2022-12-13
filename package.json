@@ -1,7 +1,7 @@
 {
 	"name": "sidra",
 	"description": "⚔️ Sidra offers you many decorators for you to use with Cloudflare Workers.",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"main": "dist",
 	"license": "GPL-3.0",
 	"typings": "dist",
