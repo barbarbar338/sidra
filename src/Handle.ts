@@ -31,9 +31,9 @@ export const Handle = (Controllers: any[]) => {
 			router[route.requestMethod](
 				newPath,
 				...route.middlewares,
-				(req) => {
+				async (req) => {
 					try {
-						const res = controller[route.methodName](req);
+						const res = await controller[route.methodName](req);
 						const statusCode = res?.status || HTTPStatus.OK;
 
 						if (!res) {
