@@ -16,7 +16,7 @@ export interface IRoute {
 	requestMethod: string;
 	path: string;
 	methodName: string | symbol;
-	middlewares: RouteHandler<Request>[];
+	middlewares: RouteHandler[];
 	redirect?: boolean;
 }
 

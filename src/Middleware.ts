@@ -1,7 +1,7 @@
 import { RouteHandler } from "itty-router";
 import { IRoute } from "./Utils";
 
-export const Middleware = (...middlewares: RouteHandler<Request>[]) => {
+export const Middleware = (...middlewares: RouteHandler[]) => {
 	const decorator: MethodDecorator = (target, propertyKey) => {
 		if (!Reflect.hasMetadata("routes", target.constructor)) {
 			Reflect.defineMetadata("routes", [], target.constructor);

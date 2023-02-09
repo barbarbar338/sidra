@@ -11,7 +11,10 @@ import {
 	IRoute,
 } from "./Utils";
 
-export const Handle = (Controllers: any[], cors?: ICorsOptions) => {
+export const Handle = (
+	Controllers: any[],
+	cors?: ICorsOptions,
+): ((request: Request, ...extra: any) => Promise<any>) => {
 	const router = ThrowableRouter();
 
 	for (const Controller of Controllers) {
