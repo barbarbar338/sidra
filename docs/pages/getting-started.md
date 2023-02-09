@@ -1,6 +1,6 @@
 # Getting Started
 
-You can use command `npx wrangler generate my-app https://github.com/barisbored/sidra-template` to create a new Sidra project or you can manually install Sidra to your project. In the examples here, we will use a TypeScript environment.
+You can use command `npx wrangler generate my-app https://github.com/barbarbar338/sidra-template` to create a new Sidra project or you can manually install Sidra to your project. In the examples here, we will use a TypeScript environment.
 
 ## Prerequisites
 

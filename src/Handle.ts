@@ -5,11 +5,13 @@ import {
 	APIRes,
 	checkIfIAPIRes,
 	checkIfIRedirectRes,
+	corsify,
 	HTTPStatus,
+	ICorsOptions,
 	IRoute,
 } from "./Utils";
 
-export const Handle = (Controllers: any[]) => {
+export const Handle = (Controllers: any[], cors?: ICorsOptions) => {
 	const router = ThrowableRouter();
 
 	for (const Controller of Controllers) {
@@ -52,19 +54,31 @@ export const Handle = (Controllers: any[]) => {
 								);
 							}
 
-							return Response.redirect(res.to, statusCode);
+							const resp = Response.redirect(res.to, statusCode);
+							if (cors) corsify(resp, cors);
+
+							return resp;
 						} else {
 							if (!res) {
-								return status(statusCode, {
+								const resp = status(statusCode, {
 									data: null,
 									message: "No Response",
 									statusCode,
 								} as APIRes<null>);
+								if (cors) corsify(resp, cors);
+
+								return resp;
 							} else {
 								if (checkIfIAPIRes(res)) {
-									return status(statusCode, res);
+									const resp = status(statusCode, res);
+									if (cors) corsify(resp, cors);
+
+									return resp;
 								} else {
-									return new Response(res);
+									const resp = new Response(res);
+									if (cors) corsify(resp, cors);
+
+									return resp;
 								}
 							}
 						}
@@ -77,14 +91,24 @@ export const Handle = (Controllers: any[]) => {
 								res?.statusCode ||
 								HTTPStatus.INTERNAL_SERVER_ERROR;
 
-							return status(statusCode, res);
+							const resp = status(statusCode, res);
+							if (cors) corsify(resp, cors);
+
+							return resp;
 						} else {
-							return status(HTTPStatus.INTERNAL_SERVER_ERROR, {
-								data: null,
-								message: "Internal Server Error",
-								statusCode: HTTPStatus.INTERNAL_SERVER_ERROR,
-								error: "If you are developer, see console.",
-							} as APIRes<null>);
+							const resp = status(
+								HTTPStatus.INTERNAL_SERVER_ERROR,
+								{
+									data: null,
+									message: "Internal Server Error",
+									statusCode:
+										HTTPStatus.INTERNAL_SERVER_ERROR,
+									error: "If you are developer, see console.",
+								} as APIRes<null>,
+							);
+							if (cors) corsify(resp, cors);
+
+							return resp;
 						}
 					}
 				},
@@ -99,12 +123,15 @@ export const Handle = (Controllers: any[]) => {
 	}
 
 	router.all("*", () => {
-		return status(HTTPStatus.NOT_FOUND, {
+		const resp = status(HTTPStatus.NOT_FOUND, {
 			data: null,
 			message: "Not Found",
 			statusCode: HTTPStatus.NOT_FOUND,
 			error: "Page not found",
 		} as APIRes<null>);
+		if (cors) corsify(resp, cors);
+
+		return resp;
 	});
 
 	console.info("Router initialized");

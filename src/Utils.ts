@@ -86,20 +86,47 @@ export enum HTTPStatus {
 	NETWORK_CONNECT_TIMEOUT_ERROR = 599,
 }
 
+export interface ICorsOptions {
+	origin?: string;
+	methods?: string;
+	allowedHeaders?: string;
+	exposedHeaders?: string;
+	credentials?: boolean;
+	maxAge?: number;
+}
+
+export const corsify = (
+	response: Response,
+	{
+		allowedHeaders,
+		credentials,
+		exposedHeaders,
+		maxAge,
+		methods,
+		origin,
+	}: ICorsOptions,
+) => {
+	if (origin) response.headers.set("Access-Control-Allow-Origin", origin);
+	if (methods) response.headers.set("Access-Control-Allow-Methods", methods);
+	if (allowedHeaders)
+		response.headers.set("Access-Control-Allow-Headers", allowedHeaders);
+	if (exposedHeaders)
+		response.headers.set("Access-Control-Expose-Headers", exposedHeaders);
+	if (credentials)
+		response.headers.set(
+			"Access-Control-Allow-Credentials",
+			credentials.toString(),
+		);
+	if (maxAge)
+		response.headers.set("Access-Control-Max-Age", maxAge.toString());
+};
+
 export const checkIfIAPIRes = <T>(value: any): value is APIRes<T> => {
 	const newVal = value as APIRes<T>;
-	if (newVal.statusCode && newVal.message && newVal.data) {
-		return true;
-	} else {
-		return false;
-	}
+	return !!(newVal.statusCode && newVal.message && newVal.data);
 };
 
 export const checkIfIRedirectRes = (value: any): value is IRedirectRes => {
 	const newVal = value as IRedirectRes;
-	if (newVal.statusCode && newVal.to) {
-		return true;
-	} else {
-		return false;
-	}
+	return !!(newVal.statusCode && newVal.to);
 };
